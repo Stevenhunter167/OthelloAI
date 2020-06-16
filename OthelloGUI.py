@@ -15,7 +15,7 @@ class OthelloGUI:
     def __init__(self, player1, player2):
         self.root = tk.Tk()
         self.root.title("Main View")
-        self.canvas = tk.Canvas(self.root, bg="white", height=400, width=400)
+        self.canvas = tk.Canvas(self.root, bg="green", height=400, width=400)
         self.logic = OthelloLogic(self, player1, player2)
         self.update()
         # tk.Button(self.root, text="start", command=self.start).pack()
@@ -44,11 +44,11 @@ class OthelloGUI:
                     }
                     self.canvas.create_oval(c * 50, r * 50, c * 50 + 50, r * 50 + 50, **fill)
         self.canvas.pack()
-        time.sleep(0.5)
+        time.sleep(0.3)
         # self.root.after(10000, self.update)
 
 if __name__ == "__main__":
     # ManualAI(BLACK, name="manual ai")
-    player1 = RandomAI(BLACK)
+    player1 = ManualAI(BLACK, "steven")
     player2 = RandomAI(WHITE)
     OthelloGUI(player1, player2)
