@@ -83,7 +83,7 @@ class OthelloLogic:
         if self.turn == self.BLACK:
             action = self.black.getAction(self.board)
         elif self.turn == self.WHITE:
-            action = self.black.getAction(self.board)
+            action = self.white.getAction(self.board)
 
         # check if valid
         toFlip = self.toFlip(*action, self.turn)

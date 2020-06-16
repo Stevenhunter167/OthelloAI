@@ -1,30 +1,24 @@
 import tkinter as tk
 import threading
 from OthelloLogic import OthelloLogic
+from AI.ManualAI import ManualAI
 from AI.OthelloAI import OthelloAI
+from AI.RandomAI import RandomAI
 
-# def createWindow(geo="400x400"):
-#     root = [None]
-#     def newthread():
-#         root[0] = tk.Tk()
-#         root[0].geometry(geo)
-#         root[0].mainloop()
-#     threading.Thread(target=newthread).start()
-#     return root[0]
+BLACK = 'X'
+WHITE = 'O'
 
 class OthelloGUI:
 
     # Public
-    def __init__(self):
+    def __init__(self, player1, player2):
         self.root = tk.Tk()
         self.root.title("Main View")
         self.canvas = tk.Canvas(self.root, bg="white", height=400, width=400)
-
-        player1 = OthelloAI()
-        player2 = OthelloAI()
         self.logic = OthelloLogic(self, player1, player2)
         self.update()
-        tk.Button(self.root, text="start", command=self.start).pack()
+        # tk.Button(self.root, text="start", command=self.start).pack()
+        self.start()
         self.root.mainloop()
 
     def start(self):
@@ -32,6 +26,7 @@ class OthelloGUI:
 
     def update(self):
         """ updates gui """
+        self.canvas.delete("all")
         for r in range(8):
             for c in range(8):
                 self.canvas.create_rectangle(c * 50, r * 50, c * 50 + 50, r * 50 + 50)
@@ -43,7 +38,9 @@ class OthelloGUI:
                     }
                     self.canvas.create_oval(c * 50, r * 50, c * 50 + 50, r * 50 + 50, **fill)
         self.canvas.pack()
-        self.root.after(5000, self.update)
+        self.root.after(15000, self.update)
 
 if __name__ == "__main__":
-    OthelloGUI()
+    player1 = ManualAI(BLACK, name="manual ai")
+    player2 = RandomAI(WHITE)
+    OthelloGUI(player1, player2)
