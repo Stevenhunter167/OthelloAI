@@ -9,7 +9,10 @@ from AI.RandomAI import RandomAI
 class OthelloGUI:
 
     # Public
-    def __init__(self, player1, player2):
+    def __init__(self, player1, player2, delay=0.3, destroyWhenOver=True):
+        self.delay = delay
+        self.destroyWhenOver = destroyWhenOver
+
         self.root = tk.Tk()
         self.root.title("Main View")
         self.canvas = tk.Canvas(self.root, bg="green", height=400, width=400)
@@ -25,8 +28,8 @@ class OthelloGUI:
     def update(self):
         winstatus = self.logic.checkWin()
         if winstatus:
-            print(winstatus)
-            # self.root.destroy()
+            if self.destroyWhenOver:
+                self.root.destroy()
 
         """ updates gui """
         self.canvas.delete("all")
@@ -41,4 +44,10 @@ class OthelloGUI:
                     }
                     self.canvas.create_oval(c * 50, r * 50, c * 50 + 50, r * 50 + 50, **fill)
         self.canvas.pack()
-        time.sleep(0.3)
+        time.sleep(self.delay)
+
+    def result(self):
+        return self.logic.checkWin()
+
+    def destroy(self):
+        self.root.destroy()

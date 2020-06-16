@@ -8,6 +8,8 @@ WHITE = 'O'
 
 # Specify what kind of game to play
 
-player1 = ManualAI(BLACK, "steven")
+# player1 = ManualAI(BLACK, "steven")
+player1 = RandomAI(BLACK)
 player2 = RandomAI(WHITE)
-OthelloGUI(player1, player2)
+game = OthelloGUI(player1, player2, delay=0, destroyWhenOver=False)
+print(game.result())
