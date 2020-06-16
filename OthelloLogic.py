@@ -5,7 +5,8 @@ class OthelloLogic:
     BLACK = 'X'
     EMPTY = '.'
 
-    def __init__(self, OthelloGUI, Player1, Player2):
+    def __init__(self, OthelloGUI, Player1, Player2, out=True):
+        self.out = out
         self.GUI = OthelloGUI
         self.black = Player1
         self.white = Player2
@@ -130,5 +131,6 @@ class OthelloLogic:
         while win is False:
             self.getMove()
             win = self.checkWin()
-            print(self)
+            if self.out:
+                print(self)
         return win

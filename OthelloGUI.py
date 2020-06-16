@@ -9,7 +9,7 @@ from OthelloLogic import OthelloLogic
 
 class OthelloGUI:
 
-    def __init__(self, player1, player2, delay=0.3, destroyWhenOver=True):
+    def __init__(self, player1, player2, delay=0.3, destroyWhenOver=True, logicout=True):
         # GUI Params
         self.delay = delay
         self.destroyWhenOver = destroyWhenOver
@@ -18,14 +18,16 @@ class OthelloGUI:
         self.root = tk.Tk()
         self.root.title("Main View")
         self.canvas = tk.Canvas(self.root, bg="green", height=400, width=400)
-        self.logic = OthelloLogic(self, player1, player2)
+        self.logic = OthelloLogic(self, player1, player2, out=logicout)
+        self.logicThread = threading.Thread(target=self.logic.run)
+
         self.update()
         self.start()
         self.root.mainloop()
 
     def start(self):
         # start logic in a separate thread
-        threading.Thread(target=self.logic.run).start()
+        self.logicThread.start()
 
     def update(self):
         """ updates gui """
@@ -33,6 +35,7 @@ class OthelloGUI:
         if winStatus:
             if self.destroyWhenOver:
                 self.root.destroy()
+                return
 
         # refresh gui: update all cells
         self.canvas.delete("all")
@@ -50,3 +53,4 @@ class OthelloGUI:
 
     def destroy(self):
         self.root.destroy()
+        self.logicThread.join()
