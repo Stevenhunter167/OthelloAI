@@ -2,6 +2,8 @@ from tkinter import *
 
 class OthelloAI:
 
+    """ template """
+
     def __init__(self):
         pass
 
