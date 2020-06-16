@@ -1,5 +1,6 @@
 import tkinter as tk
 import threading
+import time
 from OthelloLogic import OthelloLogic
 from AI.ManualAI import ManualAI
 from AI.OthelloAI import OthelloAI
@@ -25,6 +26,11 @@ class OthelloGUI:
         threading.Thread(target=self.logic.run).start()
 
     def update(self):
+        winstatus = self.logic.checkWin()
+        if winstatus:
+            print(winstatus)
+            # self.root.destroy()
+
         """ updates gui """
         self.canvas.delete("all")
         for r in range(8):
@@ -38,9 +44,11 @@ class OthelloGUI:
                     }
                     self.canvas.create_oval(c * 50, r * 50, c * 50 + 50, r * 50 + 50, **fill)
         self.canvas.pack()
-        self.root.after(15000, self.update)
+        time.sleep(0.5)
+        # self.root.after(10000, self.update)
 
 if __name__ == "__main__":
-    player1 = ManualAI(BLACK, name="manual ai")
+    # ManualAI(BLACK, name="manual ai")
+    player1 = RandomAI(BLACK)
     player2 = RandomAI(WHITE)
     OthelloGUI(player1, player2)
