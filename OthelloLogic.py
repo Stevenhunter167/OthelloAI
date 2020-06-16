@@ -1,5 +1,3 @@
-from AI.OthelloAI import OthelloAI
-
 class OthelloLogic:
 
     # Public
@@ -19,7 +17,7 @@ class OthelloLogic:
         self.turn = self.BLACK
 
     def __str__(self):
-        res = "===================\n"
+        res = "== Othello Logic ==\n"
         res += "# "
         for i in range(8):
             res += str(i) + " "
@@ -56,7 +54,7 @@ class OthelloLogic:
             for j in range(8):
                 yield i, j
 
-    def checkWin(self):
+    def checkWin(self) -> ("BLACK", "WHITE"):
         for color in [self.BLACK, self.WHITE]:
             for (r, c) in self.allCell():
                 if len(self.toFlip(r, c, color)) != 0:
@@ -64,9 +62,9 @@ class OthelloLogic:
         else:
             countP1 = [self.get(r, c) for r, c in self.allCell()].count(self.BLACK)
             countP2 = [self.get(r, c) for r, c in self.allCell()].count(self.WHITE)
-            return (countP1, countP2)
+            return countP1, countP2
 
-    def getMove(self):
+    def getMove(self) -> (int, int):
 
         # check if there is any available move
         for (r, c) in self.allCell():
