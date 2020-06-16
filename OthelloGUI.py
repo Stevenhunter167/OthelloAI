@@ -6,9 +6,6 @@ from AI.ManualAI import ManualAI
 from AI.OthelloAI import OthelloAI
 from AI.RandomAI import RandomAI
 
-BLACK = 'X'
-WHITE = 'O'
-
 class OthelloGUI:
 
     # Public
@@ -45,10 +42,3 @@ class OthelloGUI:
                     self.canvas.create_oval(c * 50, r * 50, c * 50 + 50, r * 50 + 50, **fill)
         self.canvas.pack()
         time.sleep(0.3)
-        # self.root.after(10000, self.update)
-
-if __name__ == "__main__":
-    # ManualAI(BLACK, name="manual ai")
-    player1 = ManualAI(BLACK, "steven")
-    player2 = RandomAI(WHITE)
-    OthelloGUI(player1, player2)

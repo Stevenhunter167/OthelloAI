@@ -134,11 +134,3 @@ class OthelloLogic:
             win = self.checkWin()
             print(self)
         return win
-
-if __name__ == "__main__":
-    player1 = OthelloAI()
-    player2 = OthelloAI()
-    game = OthelloLogic(0, player1, player2)
-    print("line 121")
-    print(game)
-    print("(black,white):", game.run())
