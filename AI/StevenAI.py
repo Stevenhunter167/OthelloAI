@@ -50,7 +50,7 @@ class StevenAI(OthelloBaseAI):
                     maxEvaluation = evaluation
                     bestAction = action
 
-            return maxEvaluation, action
+            return maxEvaluation, bestAction
 
         else:
             allChildren.sort(key=lambda t: t[1], reverse=False)  # increasing order
@@ -66,11 +66,12 @@ class StevenAI(OthelloBaseAI):
                     minEvaluation = evaluation
                     bestAction = action
 
-            return minEvaluation, action
+            return minEvaluation, bestAction
 
     def getAction(self, board):
         currentState = State(self.color, board)
         # evaluate the best value, action pair given the current state
-        value, action = self.heuristicMinimax(currentState, depth=4, isMyTurn=False, policy=6)
+        value, action = self.heuristicMinimax(currentState, depth=4, isMyTurn=True, policy=15)
+        # print(State(self.color, board))
         # print("value:", value)
         return action

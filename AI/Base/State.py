@@ -8,12 +8,27 @@ class State(OthelloBaseAI):
     def __init__(self, color, board):
         """
         initialize State
-        :param
-        evaluateFunc: evaluateFunc(board) -> float
         """
         self.color = color
         self.board = board
         self.validMoves = self.availablePositions(board)
+
+    def __str__(self):
+        res = "====== State ======\n"
+        res += "# "
+        for i in range(8):
+            res += str(i) + " "
+        res += "#\n"
+        for i in range(8):
+            res += str(i) + " "
+            for j in range(8):
+                res += self.board[i][j] + " "
+            res += str(i) + "\n"
+        res += "# "
+        for i in range(8):
+            res += str(i) + " "
+        res += "#\n==================="
+        return res
 
     @staticmethod
     def copy(board) -> "board":
