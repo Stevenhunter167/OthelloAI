@@ -9,6 +9,8 @@ from OthelloLogic import OthelloLogic
 
 class OthelloGUI:
 
+    """ Othello GUI """
+
     def __init__(self, player1, player2, delay=0.3, destroyWhenOver=True, logicout=True):
         # GUI Params
         self.delay = delay
@@ -26,7 +28,7 @@ class OthelloGUI:
         self.root.mainloop()
 
     def start(self):
-        # start logic in a separate thread
+        """ start logic in a separate thread """
         self.logicThread.start()
 
     def update(self):

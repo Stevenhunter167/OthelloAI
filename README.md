@@ -1,7 +1,8 @@
 # Othello Game and AI
 ![Demo1](Demo1.png)
-
+#### Pure Python Environment
+no dependencies, no compiling, just run main.py
 #### Note:
-AI/OthelloAI.py is a template of AI
+1. AI/OthelloAI.py is a template of AI
 
-Write your script to run/test AIs in main.py
+2. Write your script to run/test AIs in main.py
