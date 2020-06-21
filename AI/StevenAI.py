@@ -15,7 +15,9 @@ class StevenAI(OthelloBaseAI):
         elif self.color == self.WHITE:
             difference = c[1] - c[0]
 
-        return difference + self.corner(state) * 50 + 2 * (len(state.validMoves) * 1 if state.color == self.color else -1)
+        return difference \
+               + self.corner(state) * 50 \
+               + 2 * (len(state.validMoves) * 1 if state.color == self.color else -1) # + 2 * self.side(state)
 
     def corner(self, state):
         res = 0
@@ -25,6 +27,17 @@ class StevenAI(OthelloBaseAI):
             elif state.get(*location) == self.opponentColor():
                 res -= 1
         return res
+
+    def side(self, state):
+        res = 0
+        for r, c in self.allCell():
+            if (r == 0 or c == 0) or (r == 7 or c == 7):
+                if state.get(r, c) == self.color:
+                    res += 1
+                elif state.get(r, c) == self.opponentColor():
+                    res -= 1
+        return res
+
 
     def heuristicMinimax(self, currentState: State, depth, isMyTurn, policy: int):
         if depth == 0 or currentState.isTerminal():
@@ -71,7 +84,7 @@ class StevenAI(OthelloBaseAI):
     def getAction(self, board):
         currentState = State(self.color, board)
         # evaluate the best value, action pair given the current state
-        value, action = self.heuristicMinimax(currentState, depth=4, isMyTurn=True, policy=15)
+        value, action = self.heuristicMinimax(currentState, depth=5, isMyTurn=True, policy=15)
         # print(State(self.color, board))
         # print("value:", value)
         return action

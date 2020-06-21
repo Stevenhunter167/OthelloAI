@@ -10,13 +10,13 @@ BLACK = (  0,   0,   0)
 WHITE = (255, 255, 255)
 
 class OthelloGUIv2:
-    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 0)
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 30)
     pygame.init()
     window = pygame.display.set_mode((400, 400))
 
 
     def __init__(self, player1, player2, delay=0.3, destroyWhenOver=True, logicout=True):
-        os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 0)
+        os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 30)
 
         pygame.display.set_caption('test')
         self.clock = pygame.time.Clock()
@@ -47,10 +47,14 @@ class OthelloGUIv2:
     def start(self):
         self.logicThread.start()
         while not self.result():
+            pygame.event.get()
             pygame.display.update()
             self.clock.tick(100)
             # print(time.time())
         self.destroy()
+
+    def startSingleThread(self):
+        self.logic.run()
 
     def destroy(self):
         self.logicThread.join()

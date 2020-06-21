@@ -39,9 +39,7 @@ class State(OthelloBaseAI):
         return res
 
     def isTerminal(self):
-        # oppoState = State(self.opponentColor(), self.board, self.evaluateFunction)
-        # if len(self.validMoves) == 0 and len(oppoState.validMoves) == 0:
-        for color in [self.BLACK, self.WHITE]:
+        for state in [State(self.opponentColor(), self.copy(self.board)), self]:
             for (r, c) in self.allCell():
                 if len(self.toFlip(self.board, r, c)) != 0:
                     return False
