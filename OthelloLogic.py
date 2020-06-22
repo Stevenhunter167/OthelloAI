@@ -16,6 +16,7 @@ class OthelloLogic:
                 self.board[i][j] = 'X' if i == j else 'O'
         self.moveCtr = 0
         self.turn = self.BLACK
+        self.valids = self.availablePositions(self.board)
 
     def __str__(self):
         res = "== Othello Logic ==\n"
@@ -67,35 +68,37 @@ class OthelloLogic:
 
     def getMove(self) -> (int, int):
 
-        # check if there is any available move
-        for (r, c) in self.allCell():
-            if self.toFlip(r, c, self.turn):
-                break
-        else:
-            # there is no available move for this player, ask for input from the other player
+        while True:
+            # check if there is any available move
+            for (r, c) in self.allCell():
+                if self.toFlip(r, c, self.turn):
+                    break
+            else:
+                # there is no available move for this player, ask for input from the other player
+                self.turn = self.opponent(self.turn)
+                continue
+
+
+            # get the action from the right player (r, c)
+            action = None
+            if self.turn == self.BLACK:
+                action = self.black.getAction(self.board)
+            elif self.turn == self.WHITE:
+                action = self.white.getAction(self.board)
+
+            # check if valid
+            toFlip = self.toFlip(*action, self.turn)
+            if len(toFlip) == 0:
+                # invalid input
+                continue
+
+            for (r,c) in self.toFlip(*action, self.turn):
+                self.set(r, c, self.turn)
+            self.set(*action, self.turn)
             self.turn = self.opponent(self.turn)
-            return self.getMove()
-
-
-        # get the action from the right player (r, c)
-        action = None
-        if self.turn == self.BLACK:
-            action = self.black.getAction(self.board)
-        elif self.turn == self.WHITE:
-            action = self.white.getAction(self.board)
-
-        # check if valid
-        toFlip = self.toFlip(*action, self.turn)
-        if len(toFlip) == 0:
-            # invalid input
-            return self.getMove()
-
-        for (r,c) in self.toFlip(*action, self.turn):
-            self.set(r, c, self.turn)
-        self.set(*action, self.turn)
-        self.turn = self.opponent(self.turn)
-        self.GUI.update()
-        return action
+            self.valids = self.availablePositions(self.board)
+            self.GUI.update()
+            return action
 
     def toFlip(self, r, c, thisColor) -> [(int,int)]:
         """ toFlip(a location to place, this color) -> [coordinates to flip] #empty means invalid move """
@@ -124,6 +127,14 @@ class OthelloLogic:
             else:
                 currentDirection.clear()
             res.extend(currentDirection)
+        return res
+
+    def availablePositions(self, board) -> [(int, int)]:
+        res = []
+        for i in range(8):
+            for j in range(8):
+                if len(self.toFlip(i, j, self.turn)) > 0:
+                    res.append((i, j))
         return res
 
     def run(self):
