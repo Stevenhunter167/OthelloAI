@@ -56,11 +56,7 @@ class OthelloBaseAI:
                     res.append((i, j))
         return res
 
-    def get(self, r, c):
-        return self.board[r][c]
 
-    def set(self, r, c, color):
-        self.board[r][c] = color
 
 
 

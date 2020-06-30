@@ -30,6 +30,12 @@ class State(OthelloBaseAI):
         res += "#\n==================="
         return res
 
+    def get(self, r, c):
+        return self.board[r][c]
+
+    def set(self, r, c, color):
+        self.board[r][c] = color
+
     @staticmethod
     def copy(board) -> "board":
         """ helper: make a deep copy of the board """

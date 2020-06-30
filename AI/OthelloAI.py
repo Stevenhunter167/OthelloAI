@@ -8,4 +8,4 @@ class OthelloAI:
         pass
 
     def getAction(self, board) -> (int, int):
-        pass
+        pass 

@@ -16,7 +16,7 @@ class StevenAI(OthelloBaseAI):
             difference = c[1] - c[0]
 
         return difference \
-               + self.corner(state) * 50 \
+               + self.corner(state) * 64 \
                + 2 * (len(state.validMoves) * 1 if state.color == self.color else -1) # + 2 * self.side(state)
 
     def corner(self, state):
@@ -84,7 +84,7 @@ class StevenAI(OthelloBaseAI):
     def getAction(self, board):
         currentState = State(self.color, board)
         # evaluate the best value, action pair given the current state
-        value, action = self.heuristicMinimax(currentState, depth=5, isMyTurn=True, policy=15)
+        value, action = self.heuristicMinimax(currentState, depth=3, isMyTurn=True, policy=20)
         # print(State(self.color, board))
         # print("value:", value)
         return action
