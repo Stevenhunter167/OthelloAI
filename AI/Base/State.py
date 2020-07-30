@@ -45,6 +45,7 @@ class State(OthelloBaseAI):
         return res
 
     def isTerminal(self):
+        """ this state is a terminal state, end of game """
         for state in [State(self.opponentColor(), self.copy(self.board)), self]:
             for (r, c) in self.allCell():
                 if len(self.toFlip(self.board, r, c)) != 0:
@@ -55,6 +56,7 @@ class State(OthelloBaseAI):
             return countP1, countP2
 
     def count(self) -> ("black", "white"):
+        """ count the stones, returns (black:int, white:int) """
         res = [0, 0]
         for r, c in self.allCell():
             if self.get(r, c) == 'X':

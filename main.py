@@ -1,5 +1,5 @@
 # GUI
-from OthelloGUIv2 import OthelloGUIv2
+from OthelloGUI import OthelloGUIv2
 
 # import your AI
 from AI.ManualAI import ManualAI
@@ -14,11 +14,13 @@ WHITE = 'O'
 # Specify what kind of game to play (Black First)
 print("===== main.py =====")
 for i in range(10):
+
     # player1 = RandomAI(BLACK)
     # player1 = ManualAI(BLACK, "steven")
     player1 = StevenAI(BLACK)
-    # player2 = RandomAI(WHITE)
+
     player2 = RandomAI(WHITE)
+
     game = OthelloGUIv2(player1, player2, delay=0, destroyWhenOver=True, logicout=False)
     game.start()
     # print match result

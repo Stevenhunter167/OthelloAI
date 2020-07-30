@@ -6,17 +6,18 @@ class OthelloLogic:
     EMPTY = '.'
 
     def __init__(self, OthelloGUI, Player1, Player2, out=True):
-        self.out = out
-        self.GUI = OthelloGUI
-        self.black = Player1
-        self.white = Player2
-        self.board = [['.' for j in range(8)] for i in range(8)]
+        # code                                                      # attributes:
+        self.out = out                                              # allow console output: bool
+        self.GUI = OthelloGUI                                       # GUI reference       : gui object
+        self.black = Player1                                        # Player 1 reference  : player object
+        self.white = Player2                                        # Player 2 reference  : player object
+        self.board = [['.' for j in range(8)] for i in range(8)]    # board               : [ [ str ] ]
         for i in range(3,5):
             for j in range(3,5):
                 self.board[i][j] = 'X' if i == j else 'O'
-        self.moveCtr = 0
-        self.turn = self.BLACK
-        self.valids = self.availablePositions(self.board)
+        self.moveCtr = 1                                            # Move Counter        : int
+        self.turn = self.BLACK                                      # whose turn          : str
+        self.valids = self.availablePositions(self.board)           # GUI move suggestion : [(int,int)]
 
     def __str__(self):
         res = "== Othello Logic ==\n"
@@ -34,6 +35,10 @@ class OthelloLogic:
             res += str(i) + " "
         res += "#\n==================="
         return res
+
+    #############################################
+    # Basic Operations ##########################
+    #############################################
 
     def inBound(self, r, c):
         return 0 <= r < 8 and 0 <= c < 8
@@ -56,6 +61,10 @@ class OthelloLogic:
             for j in range(8):
                 yield i, j
 
+    #############################################
+    # Othello Core Logic ########################
+    #############################################
+
     def checkWin(self) -> ("BLACK", "WHITE"):
         for color in [self.BLACK, self.WHITE]:
             for (r, c) in self.allCell():
@@ -76,6 +85,8 @@ class OthelloLogic:
             else:
                 # there is no available move for this player, ask for input from the other player
                 self.turn = self.opponent(self.turn)
+                self.valids = self.availablePositions(self.board)  # update move suggestion
+                self.GUI.update()
                 continue
 
 
@@ -88,15 +99,18 @@ class OthelloLogic:
 
             # check if valid
             toFlip = self.toFlip(*action, self.turn)
-            if len(toFlip) == 0:
-                # invalid input
+            if len(toFlip) == 0:  # invalid input
                 continue
+
+            if self.out:  # action console output
+                print(f"MOVE #{self.moveCtr:<3}, ACTION", self.turn, "AT", action)
+            self.moveCtr += 1
 
             for (r,c) in self.toFlip(*action, self.turn):
                 self.set(r, c, self.turn)
             self.set(*action, self.turn)
             self.turn = self.opponent(self.turn)
-            self.valids = self.availablePositions(self.board)
+            self.valids = self.availablePositions(self.board)  # update move suggestion
             self.GUI.update()
             return action
 
@@ -142,6 +156,5 @@ class OthelloLogic:
         while win is False:
             self.getMove()
             win = self.checkWin()
-            if self.out:
-                print(self)
+            # if self.out: print(self) # ASCII Board out
         return win

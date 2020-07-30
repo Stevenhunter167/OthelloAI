@@ -6,11 +6,13 @@ class OthelloBaseAI:
     WHITE = 'O'
 
     def allCell(self):
+        """ a generator of all cell in (row,col) coordinates """
         for i in range(8):
             for j in range(8):
                 yield i, j
 
     def opponentColor(self):
+        """ returns the color of opponent stone """
         if self.color == self.BLACK:
             return self.WHITE
         elif self.color == self.WHITE:
@@ -18,9 +20,11 @@ class OthelloBaseAI:
         raise Exception()
 
     def inBound(self, r, c) -> bool:
+        """ checking if a cell is valid """
         return 0 <= r < 8 and 0 <= c < 8
 
     def toFlip(self, board, r, c) -> [(int, int)]:
+        """ the stones that will be reversed if (r,c) is pushed to the board """
         res = []
         if board[r][c] != '.':
             return res
@@ -49,6 +53,7 @@ class OthelloBaseAI:
         return res
 
     def availablePositions(self, board) -> [(int, int)]:
+        """ all legal actions that the agent can perform """
         res = []
         for i in range(8):
             for j in range(8):
