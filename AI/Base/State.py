@@ -9,7 +9,7 @@ class State(OthelloBaseAI):
         """
         initialize State
         """
-        self.color = color
+        self.color = color  # whose turn is this
         self.board = board
         self.validMoves = self.availablePositions(board)
 
@@ -44,6 +44,10 @@ class State(OthelloBaseAI):
             res.append(row.copy())
         return res
 
+    def actionSet(self) -> [(int,int)]:
+        """ returns a list of performable actions """
+        return self.availablePositions(self.board)
+
     def isTerminal(self):
         """ this state is a terminal state, end of game """
         for state in [State(self.opponentColor(), self.copy(self.board)), self]:
@@ -69,6 +73,7 @@ class State(OthelloBaseAI):
         """ returns the state after this move """
         if (r, c) not in self.validMoves:
             raise Exception(f"invalid move {(r, c)}")
+
         resultBoard = self.copy(self.board)
         for tr, tc in self.toFlip(resultBoard, r, c):
             resultBoard[tr][tc] = self.color

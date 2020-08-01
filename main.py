@@ -6,6 +6,7 @@ from AI.ManualAI import ManualAI
 from AI.RandomAI import RandomAI
 from AI.OthelloAI import OthelloAI
 from AI.StevenAI import StevenAI
+from AI.AlphaBeta import AlphaBeta
 
 # Color
 BLACK = 'X'
@@ -17,8 +18,7 @@ for i in range(10):
 
     # player1 = RandomAI(BLACK)
     # player1 = ManualAI(BLACK, "steven")
-    player1 = StevenAI(BLACK)
-
+    player1 = AlphaBeta(BLACK)
     player2 = RandomAI(WHITE)
 
     game = OthelloGUIv2(player1, player2, delay=0, destroyWhenOver=True, logicout=False)
