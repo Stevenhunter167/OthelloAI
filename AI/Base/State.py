@@ -1,6 +1,5 @@
 from AI.Base.OthelloBaseAI import OthelloBaseAI
 
-
 class State(OthelloBaseAI):
 
     """ Represents the current state of board """

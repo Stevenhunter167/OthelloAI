@@ -1,15 +1,13 @@
-import os
 import pygame
-import time
 import threading
 
-from OthelloLogic import OthelloLogic
+from GameComponents.OthelloLogic import OthelloLogic
 
 GREEN = (  0, 150,   0)
 BLACK = (  0,   0,   0)
 WHITE = (255, 255, 255)
 
-class OthelloGUIv2:
+class OthelloGUI:
     # os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 460)
     pygame.init()
     window = pygame.display.set_mode((400, 400))

@@ -1,4 +1,7 @@
 from AI.Base.State import State
+
+
+
 board = [
     ['O','O','O','O','O','O','O','O'],
     ['O','O','O','O','O','O','O','O'],

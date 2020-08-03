@@ -1,5 +1,5 @@
-from .Base.OthelloBaseAI import OthelloBaseAI
-from .Base.State import State
+from AI.Base import OthelloBaseAI
+from AI.Base import State
 
 class AlphaBeta(OthelloBaseAI):
 

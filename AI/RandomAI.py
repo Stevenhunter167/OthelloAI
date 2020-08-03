@@ -1,5 +1,5 @@
 import random
-from .Base.OthelloBaseAI import OthelloBaseAI
+from AI.Base import OthelloBaseAI
 
 class RandomAI(OthelloBaseAI):
 

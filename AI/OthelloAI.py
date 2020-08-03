@@ -1,3 +1,6 @@
+# Optional inheritable base AI class
+from AI.Base import OthelloBaseAI
+
 class OthelloAI:
 
     """ template """

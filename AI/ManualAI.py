@@ -1,6 +1,5 @@
-from tkinter import *
 import pygame
-from .Base.OthelloBaseAI import OthelloBaseAI
+from AI.Base import OthelloBaseAI
 
 class ManualAI(OthelloBaseAI):
 

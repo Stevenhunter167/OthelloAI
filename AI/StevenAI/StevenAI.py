@@ -2,6 +2,7 @@ from AI.Base.OthelloBaseAI import OthelloBaseAI
 from AI.Base.State import State
 
 
+
 class StevenAI(OthelloBaseAI):
 
     def __init__(self, color):
