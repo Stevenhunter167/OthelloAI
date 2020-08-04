@@ -1,7 +1,7 @@
 import pygame
 import threading
 
-from GameComponents.OthelloLogic import OthelloLogic
+from .OthelloLogic import OthelloLogic
 
 GREEN = (  0, 150,   0)
 BLACK = (  0,   0,   0)
