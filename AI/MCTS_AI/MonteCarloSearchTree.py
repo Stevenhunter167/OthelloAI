@@ -27,8 +27,7 @@ class MonteCarloSearchTree:
 
     """ the search tree data structure and methods for MCTS """
 
-    def __init__(self, root, NodeType, balanceFactor=2):
-        self.NodeType = NodeType
+    def __init__(self, root, balanceFactor=2):
         self.root = root                    # root node
         self.balanceFactor = balanceFactor  # value of c
 
@@ -76,7 +75,7 @@ class MonteCarloSearchTree:
 
     def isTerminal(self, treenode):
         """ implement this method in your derived class """
-        return
+        return treenode.isTerminal()
 
     def iterate(self):
         """ execute 1 iteration of monte carlo tree search """
