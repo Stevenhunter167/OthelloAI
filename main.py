@@ -7,11 +7,12 @@ WHITE = 'O'
 
 # import your AI
 from AI.RandomAI import RandomAI            # Random Move
+from AI.AlphaBeta import AlphaBeta
 
 # print("===== main.py =====")
 for i in range(10):
     player1 = RandomAI(BLACK)
-    player2 = RandomAI(WHITE)
+    player2 = AlphaBeta(WHITE)
 
     # play game
     game = OthelloGUI(player1, player2, delay=0, destroyWhenOver=True, logicout=False)

@@ -8,7 +8,7 @@ class AlphaBeta(OthelloBaseAI):
         self.color = color
 
     def getAction(self, board) -> (int,int):
-        value, action = self.alphaBetaSearch(State(self.color, board), 7, float('-inf'), float('+inf'), True)
+        value, action = self.alphaBetaSearch(State(self.color, board), 5, float('-inf'), float('+inf'), True)
         return action
 
     def corner(self, state):

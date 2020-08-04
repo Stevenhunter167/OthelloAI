@@ -5,23 +5,28 @@ class MCTreeNode:
 
     """ a base class for MCTS node """
 
-    def __init__(self, parent=None, children=None, data=None):
-        self.data = data
+    def __init__(self, parent=None, children=None, state=None):
+        self.state = state
         self.parent = parent
         self.children = children
         self.vi = 0
         self.ni = 0
 
+    def evaluate(self):
+        """ TODO: implement this method in your derived class """
+        return 0.0
+
     def getChildren(self) -> list:
         """ TODO: implement this method in your derived class """
         return list()
 
-    def expand(self) -> list:
-        self.children = self.getChildren()
-
     def isTerminal(self):
         """ TODO: implement this method in your derived class """
         return True
+
+    def expand(self) -> list:
+        self.children = self.getChildren()
+
 
 class MonteCarloSearchTree:
 
@@ -100,4 +105,8 @@ class MonteCarloSearchTree:
     # Output #############################################
     ######################################################
 
-    # TODO
+    def __str__(self):
+        pass
+
+    def serialize(self):
+        pass
