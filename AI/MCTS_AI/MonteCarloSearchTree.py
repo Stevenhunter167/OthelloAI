@@ -12,6 +12,13 @@ class MCTreeNode:
         self.vi = 0
         self.ni = 0
 
+    def __str__(self):
+        return f"{{n={self.ni},v={self.vi}}}"
+
+    def __eq__(self, other):
+        """ TODO: implement this method in your derived class """
+        return False
+
     def evaluate(self):
         """ TODO: implement this method in your derived class """
         return 0.0
@@ -32,9 +39,26 @@ class MonteCarloSearchTree:
 
     """ the search tree data structure and methods for MCTS """
 
-    def __init__(self, root, balanceFactor=2):
-        self.root = root                    # root node
+    def __init__(self, balanceFactor=2):
+        self.root = None
         self.balanceFactor = balanceFactor  # value of c
+
+    def setRoot(self, treenode):
+        if self.root is None:
+            self.root = treenode
+            return  # no root before
+        frontier = [self.root]
+        while len(frontier) > 0:
+            node = frontier.pop(0)
+            if self.isLeaf(node):
+                continue
+            if node == treenode:
+                self.root = node
+                return True  # found node in subtree, setting it as root
+            frontier.extend(node.children)
+        self.root = treenode
+        return False  # not found
+
 
     def UCB1(self, treenode):
 
@@ -91,7 +115,7 @@ class MonteCarloSearchTree:
         result = self.simulate(target)
         self.update(target, result.vi)
 
-    def getResult(self):
+    def getResult(self) -> "State":
         maxUCB1 = float('-inf')
         nextNode = None
         for child in self.root.children:
@@ -99,14 +123,24 @@ class MonteCarloSearchTree:
             if childUCB1 > maxUCB1:
                 maxUCB1 = childUCB1
                 nextNode = child
-        return nextNode
+        return nextNode.state
 
     ######################################################
     # Output #############################################
     ######################################################
 
-    def __str__(self):
-        pass
+    def DFS(self, treenode, f=(lambda s: print([str(s) for n in s])), stack=[]):
+        if self.isLeaf(treenode):
+            stack.append(treenode)
+            f(stack)
+            stack.pop(-1)
+        for subtree in treenode.children:
+            stack.append(subtree)
+            self.DFS(subtree)
+            stack.pop(-1)
+
+    def consoleOut(self):
+        self.DFS(self.root)
 
     def serialize(self):
         pass
