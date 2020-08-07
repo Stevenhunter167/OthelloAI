@@ -12,7 +12,7 @@ from AI.MCTS_AI import MCTS
 
 # print("===== main.py =====")
 for i in range(10):
-    player1 = MCTS(BLACK)
+    player1 = AlphaBeta(BLACK)
     player2 = RandomAI(WHITE)
 
     # play game

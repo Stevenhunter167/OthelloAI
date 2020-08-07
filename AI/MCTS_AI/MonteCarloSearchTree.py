@@ -44,26 +44,29 @@ class MonteCarloSearchTree:
         self.balanceFactor = balanceFactor  # value of c
 
     def setRoot(self, treenode):
-        if self.root is None:
-            self.root = treenode
-            return  # no root before
-        frontier = [self.root]
-        while len(frontier) > 0:
-            node = frontier.pop(0)
-            if self.isLeaf(node):
-                continue
-            if node == treenode:
-                self.root = node
-                return True  # found node in subtree, setting it as root
-            frontier.extend(node.children)
         self.root = treenode
-        return False  # not found
+
+        # if self.root is None:
+        #     self.root = treenode
+        #     return  # no root before
+        # frontier = [self.root]
+        # while len(frontier) > 0:
+        #     node = frontier.pop(0)
+        #     if self.isLeaf(node):
+        #         continue
+        #     if node == treenode:
+        #         self.root = node
+        #         return True  # found node in subtree, setting it as root
+        #     frontier.extend(node.children)
+        # self.root = treenode
+        # return False  # not found
 
 
     def UCB1(self, treenode):
 
         """ classic UCB1 formula, optional to reimplement your own formula for calculating UCB1 """
-
+        if treenode.ni == 0:
+            return float('+inf')
         exploitation = treenode.vi / treenode.ni                    # exploitation term
         exploration = sqrt(log(treenode.parent.ni) / treenode.ni)   # exploration term
         return exploitation + self.balanceFactor * exploration      # calculate UCB1 value
@@ -109,11 +112,14 @@ class MonteCarloSearchTree:
     def iterate(self):
         """ execute 1 iteration of monte carlo tree search """
         target = self.select()
+        if target.isTerminal():
+            self.update(target, target.evaluate())  # already at bottom of tree
+            return
         if target.ni != 0:
             self.expand(target)
             target = next(iter(target.children))
         result = self.simulate(target)
-        self.update(target, result.vi)
+        self.update(target, result.evaluate())
 
     def getResult(self) -> "State":
         maxUCB1 = float('-inf')
@@ -129,11 +135,12 @@ class MonteCarloSearchTree:
     # Output #############################################
     ######################################################
 
-    def DFS(self, treenode, f=(lambda s: print([str(s) for n in s])), stack=[]):
+    def DFS(self, treenode, f=(lambda s: print([str(n) for n in s])), stack=[]):
         if self.isLeaf(treenode):
             stack.append(treenode)
             f(stack)
             stack.pop(-1)
+            return
         for subtree in treenode.children:
             stack.append(subtree)
             self.DFS(subtree)

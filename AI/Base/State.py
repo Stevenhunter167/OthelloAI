@@ -76,4 +76,5 @@ class State(OthelloBaseAI):
         resultBoard = self.copy(self.board)
         for tr, tc in self.toFlip(resultBoard, r, c):
             resultBoard[tr][tc] = self.color
+        resultBoard[r][c] = self.color
         return State(self.opponentColor(), resultBoard)
