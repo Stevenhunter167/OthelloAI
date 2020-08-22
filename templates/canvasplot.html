@@ -9,7 +9,22 @@
     </script>
     </head>
     <body>
-    <div class="navbar"><span>Othello Monitor</span></div>
+    <div class="navbar">
+        <span>Othello Monitor</span>
+        <button id="startbutton">start</button>
+        <script>
+            $( "#startbutton" ).click(function() {
+                $('#startbutton').attr("disabled", true)
+                jQuery.ajax({
+                    type: "GET",
+                    url: "/start",
+                    success: (result) => {
+                        $('#startbutton').attr("disabled", false)
+                    }
+                })
+            });
+        </script>
+    </div>
     <div class="wrapper" style="margin-top: 20px">
         <div style="width: 400px;">
             <div align="center">node_explored</div>
