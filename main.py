@@ -9,6 +9,7 @@ WHITE = 'O'
 from AI.RandomAI import RandomAI            # Random Move
 from AI.AlphaBeta import AlphaBeta
 from AI.MCTS_AI import MCTS
+from AI.ManualAI import ManualAI
 
 # print("===== main.py =====")
 for i in range(10):

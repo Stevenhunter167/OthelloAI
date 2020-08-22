@@ -11,6 +11,7 @@ class MCTS(OthelloBaseAI):
         def __init__(self, state, color, parent=None, children=None):
             super().__init__(parent, children, state)
             self.color = color
+            self.debug = {}
 
         def evaluate(self):
             """ evaluation function """
@@ -57,6 +58,8 @@ class MCTS(OthelloBaseAI):
         # search until there is no time left
         while time.time() - startTime < self.thinkTime:
             self.searchTree.iterate()
+
+        print("MCTS Explored:", self.searchTree.debug['node_explored'], "nodes")
 
         # return the best move found
         bestNextState = self.searchTree.getResult()

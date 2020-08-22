@@ -42,9 +42,11 @@ class MonteCarloSearchTree:
     def __init__(self, balanceFactor=2):
         self.root = None
         self.balanceFactor = balanceFactor  # value of c
+        self.debug = {}
 
     def setRoot(self, treenode):
         self.root = treenode
+        self.debug['node_explored'] = 0
 
         # if self.root is None:
         #     self.root = treenode
@@ -61,9 +63,7 @@ class MonteCarloSearchTree:
         # self.root = treenode
         # return False  # not found
 
-
     def UCB1(self, treenode):
-
         """ classic UCB1 formula, optional to reimplement your own formula for calculating UCB1 """
         if treenode.ni == 0:
             return float('+inf')
@@ -87,6 +87,7 @@ class MonteCarloSearchTree:
     def expand(self, treenode: MCTreeNode):
         """ expand the selected node """
         treenode.expand()
+        self.debug['node_explored'] += 1
 
     def simulate(self, treenode: MCTreeNode) -> MCTreeNode:
         """ returns the result of simulation """

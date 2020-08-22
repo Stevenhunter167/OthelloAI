@@ -1,0 +1,60 @@
+<html>
+    <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous">
+    </script>
+    </head>
+    <body>
+    <div class="navbar"><span>Othello Monitor</span></div>
+    <div class="wrapper" style="margin-top: 20px">
+        <div style="width: 400px;">
+            <div align="center">node_explored</div>
+            <div id="chart"></div>
+        </div>
+
+
+        <script>
+            function getData() {
+                x = 0
+                jQuery.ajax({
+                    type: "GET",
+                    url: "/dataout",
+                    success: (result) => {
+                        result = JSON.parse(result);
+                        console.log(result);
+                        x = result.node_explored[result.node_explored.length - 1]
+                    },
+                    async: false
+                })
+                return x;
+            }  
+
+            Plotly.plot('chart',[{
+                y:[getData()],
+                type:'line',
+                title: 'node_explored'
+            }]);
+            
+            var cnt = 0;
+
+            setInterval(function(){
+                
+                Plotly.extendTraces('chart',{ y:[[getData()]]}, [0]);
+                cnt++;
+                if(cnt > 50) {
+                    Plotly.relayout('chart',{
+                        xaxis: {
+                            range: [cnt-50,cnt]
+                        }
+                    });
+                }
+            },1000);
+        </script>
+    </div>
+    
+    </body>
+</html>
